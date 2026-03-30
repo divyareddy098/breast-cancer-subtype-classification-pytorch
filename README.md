@@ -92,6 +92,12 @@ This project is currently in progress. Data preprocessing and model development 
 
 ---
 
+## Implementation Status
+
+Core modules for data preprocessing, model training, and evaluation are implemented as part of a modular pipeline. Model training and optimization are in progress.
+
+---
+
 ## Skills Demonstrated
 
 - Deep learning for biological data  
