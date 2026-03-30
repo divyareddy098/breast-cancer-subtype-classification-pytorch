@@ -1,110 +1,114 @@
 # 🧠 Deep Learning for Breast Cancer Subtype Classification (PyTorch)
 
-## 🎯 Project Goal
-
-Developed a deep learning model to classify breast cancer subtypes from RNA-seq data and identify key predictive genes.
-
----
-
-## 📌 Overview
-
-This project uses TCGA RNA-seq data to classify breast cancer subtypes using a neural network model built in PyTorch.
-
-The workflow includes:
-
-* data preprocessing
-* feature selection
-* model training
-* evaluation
-* model interpretability using SHAP
+## Project Goal
+Developing a deep learning model to classify breast cancer subtypes from TCGA RNA-seq data and explore key predictive genes associated with different molecular subtypes.
 
 ---
 
-## 🚀 Key Features
+## Overview
+In this project, I built a neural network–based pipeline using TCGA RNA-seq data to classify breast cancer subtypes. The goal is to combine deep learning with genomic data analysis to understand subtype-specific transcriptional patterns.
 
-* Classification of breast cancer subtypes from gene expression data
-* Deep learning model implemented in **PyTorch**
-* Performance evaluation using **ROC-AUC and F1-score**
-* Feature importance analysis using **SHAP**
-* Visualization of model predictions and gene contributions
+This project focuses on clinically relevant breast cancer subtypes (e.g., Luminal A, Luminal B, HER2-enriched, Basal-like).
 
 ---
 
-## 📂 Project Structure
+## Workflow Overview
 
-```
-breast-cancer-subtype-classification-pytorch/
-│── notebooks/
-│── scripts/
-│── data/
-│── results/
-│── figures/
-```
+1. Data preprocessing and normalization  
+2. Feature selection and dataset preparation  
+3. Deep learning model development (PyTorch)  
+4. Model training and evaluation  
+5. Model interpretability using SHAP  
 
 ---
 
-## ⚙️ Workflow
+## Key Features
+
+- Classification of breast cancer subtypes using RNA-seq gene expression data  
+- Deep learning model implemented in PyTorch  
+- Handling of high-dimensional genomic datasets  
+- Model evaluation using ROC-AUC and F1-score  
+- Feature importance analysis using SHAP for biological interpretation  
+- Modular and reproducible pipeline  
+
+---
+
+## Project Structure
+
+breast-cancer-subtype-classification-pytorch/  
+│── scripts/  
+│── notebooks/  
+│── data/  
+│── results/  
+│── figures/  
+│── README.md  
+
+---
+
+## ⚙️ Workflow Details
 
 ### 1️⃣ Data Processing
-
-* Load TCGA RNA-seq dataset
-* Normalize gene expression data
-* Prepare training and test datasets
+- Load TCGA RNA-seq dataset  
+- Normalize gene expression values  
+- Prepare training and test datasets  
 
 ### 2️⃣ Model Development
-
-* Build neural network using PyTorch
-* Train model on gene expression features
+- Build neural network architecture using PyTorch  
+- Train model on gene expression features  
 
 ### 3️⃣ Model Evaluation
-
-* Evaluate performance using ROC-AUC and F1-score
-* Validate classification accuracy across subtypes
+- Evaluate model performance using ROC-AUC and F1-score  
+- Assess classification performance across subtypes  
 
 ### 4️⃣ Model Interpretability
-
-* Apply SHAP to identify important genes
-* Visualize feature importance
-
----
-
-## 📈 Example Output
-
-* ROC curve
-* Confusion matrix
-* SHAP summary plot
-* Key predictive genes
+- Apply SHAP to identify important genes  
+- Visualize feature importance and gene contributions  
 
 ---
 
-## 🛠️ Tools & Technologies
+## Status
 
-* Python
-* PyTorch
-* pandas, NumPy
-* scikit-learn
-* SHAP
-* matplotlib / plotly
+This project is currently in progress. Data preprocessing and model development pipelines are implemented, and model training and evaluation are ongoing.
 
 ---
 
-## 💡 Skills Demonstrated
+## Expected Outputs
 
-* Deep learning model development
-* Genomic data analysis
-* Model evaluation and validation
-* Explainable AI (SHAP)
-* Data preprocessing and feature engineering
-
----
-
-## 🎯 Impact
-
-This project demonstrates application of deep learning to genomic data for cancer classification and biomarker discovery.
+- ROC curve  
+- Confusion matrix  
+- SHAP summary plots  
+- Identification of subtype-associated genes  
 
 ---
 
-## 👩‍💻 Author
+## Tools & Technologies
 
-Divya Reddy
-MS Bioinformatics | Georgia Tech
+- Python  
+- PyTorch  
+- pandas, NumPy  
+- scikit-learn  
+- SHAP  
+- matplotlib / plotly  
+
+---
+
+## Skills Demonstrated
+
+- Deep learning for biological data  
+- High-dimensional RNA-seq data analysis  
+- Model evaluation and validation  
+- Explainable AI (SHAP)  
+- Data preprocessing and feature engineering  
+
+---
+
+## Impact
+
+This project demonstrates the application of deep learning to genomic data for cancer subtype classification and provides a foundation for identifying potential biomarkers.
+
+---
+
+## Author
+
+Divya Reddy  
+MS Bioinformatics, Georgia Institute of Technology  
