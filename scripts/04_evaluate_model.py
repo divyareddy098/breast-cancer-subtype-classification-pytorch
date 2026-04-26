@@ -102,7 +102,7 @@ plt.tight_layout()
 plt.savefig("figures/validation_metrics_curve.png", dpi=300)
 plt.close()
 
-print("✅ Evaluation complete")
+print("Evaluation complete")
 print("Saved figures:")
 print(" - figures/confusion_matrix.png")
 print(" - figures/roc_curve.png")
