@@ -320,7 +320,7 @@ def main():
     with open(os.path.join(RESULTS_DIR, "label_mapping.json"), "w") as f:
         json.dump({int(i): c for i, c in enumerate(class_names)}, f, indent=4)
 
-    print("\n✅ Training complete")
+    print("\n Training complete")
     print("Saved model:", best_model_path)
     print("Saved history: results/training_history.csv")
     print("Saved predictions: results/test_predictions.csv")
