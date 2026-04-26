@@ -1,120 +1,171 @@
-# 🧠 Deep Learning for Breast Cancer Subtype Classification (PyTorch)
+# 🧬 Deep Learning for Breast Cancer Subtype Classification Using TCGA RNA-seq Data (PyTorch)
 
-## Project Goal
-Developing a deep learning model to classify breast cancer subtypes from TCGA RNA-seq data and explore key predictive genes associated with different molecular subtypes.
+## 📌 Overview
+This project develops an end-to-end deep learning pipeline to classify breast cancer molecular subtypes using TCGA RNA-seq gene expression data. The goal is to combine machine learning with transcriptomic analysis to understand subtype-specific gene expression patterns and identify biologically meaningful predictive genes.
 
----
-
-## Overview
-In this project, I built a neural network–based pipeline using TCGA RNA-seq data to classify breast cancer subtypes. The goal is to combine deep learning with genomic data analysis to understand subtype-specific transcriptional patterns.
-
-This project focuses on clinically relevant breast cancer subtypes (e.g., Luminal A, Luminal B, HER2-enriched, Basal-like).
-
----
-
-## Workflow Overview
-
-1. Data preprocessing and normalization  
-2. Feature selection and dataset preparation  
-3. Deep learning model development (PyTorch)  
-4. Model training and evaluation  
-5. Model interpretability using SHAP  
+Breast cancer subtypes considered:
+- Luminal A (LumA)
+- Luminal B (LumB)
+- HER2-enriched (Her2)
+- Basal-like (Basal)
+- Normal-like (Normal)
 
 ---
 
-## Key Features
+## ⚙️ Pipeline
 
-- Classification of breast cancer subtypes using RNA-seq gene expression data  
-- Deep learning model implemented in PyTorch  
-- Handling of high-dimensional genomic datasets  
-- Model evaluation using ROC-AUC and F1-score  
-- Feature importance analysis using SHAP for biological interpretation  
-- Modular and reproducible pipeline  
 
----
+Raw RNA-seq Data (TCGA Xena)
+↓
+Preprocessing & Normalization
+↓
+Feature Selection (Top 5000 genes)
+↓
+Clinical Label Integration (PAM50)
+↓
+Deep Learning Model (PyTorch)
+↓
+Evaluation (ROC, F1, Confusion Matrix)
+↓
+Interpretability (SHAP)
 
-## Project Structure
-
-breast-cancer-subtype-classification-pytorch/  
-│── scripts/  
-│── notebooks/  
-│── data/  
-│── results/  
-│── figures/  
-│── README.md  
 
 ---
 
-## ⚙️ Workflow Details
+## 📊 Results
 
-### 1️⃣ Data Processing
-- Load TCGA RNA-seq dataset  
-- Normalize gene expression values  
-- Prepare training and test datasets  
+### 🔹 Confusion Matrix
+![Confusion Matrix](figures/confusion_matrix.png)
 
-### 2️⃣ Model Development
-- Build neural network architecture using PyTorch  
-- Train model on gene expression features  
+### 🔹 ROC Curves
+![ROC Curve](figures/roc_curve.png)
 
-### 3️⃣ Model Evaluation
-- Evaluate model performance using ROC-AUC and F1-score  
-- Assess classification performance across subtypes  
+### 🔹 Training Loss
+![Training Loss](figures/training_loss_curve.png)
 
-### 4️⃣ Model Interpretability
-- Apply SHAP to identify important genes  
-- Visualize feature importance and gene contributions  
+### 🔹 SHAP Interpretation
+![SHAP Summary](figures/shap_summary_LumA.png)
 
 ---
 
-## Status
+## 📈 Performance
 
-This project is currently in progress. Data preprocessing and model development pipelines are implemented, and model training and evaluation are ongoing.
+- **Accuracy:** ~74%  
+- **Macro F1-score:** ~0.74  
+- **ROC-AUC:** >0.90 across all subtypes  
 
----
-
-## Expected Outputs
-
-- ROC curve  
-- Confusion matrix  
-- SHAP summary plots  
-- Identification of subtype-associated genes  
+### Key Observations
+- Strong classification performance for **Basal** and **LumB** subtypes  
+- Misclassification observed between **Luminal A** and **Normal** subtypes due to biological similarity  
+- High ROC-AUC indicates strong separability of transcriptomic patterns  
 
 ---
 
-## Tools & Technologies
+## 🧠 Model Architecture
 
-- Python  
-- PyTorch  
-- pandas, NumPy  
-- scikit-learn  
-- SHAP  
-- matplotlib / plotly  
-
----
-
-## Implementation Status
-
-Core modules for data preprocessing, model training, and evaluation are implemented as part of a modular pipeline. Model training and optimization are in progress.
+- Fully connected neural network (PyTorch)
+- Batch normalization + dropout regularization
+- AdamW optimizer with learning rate scheduling
+- Early stopping to prevent overfitting
+- Class imbalance handled using weighted loss
 
 ---
 
-## Skills Demonstrated
+## 🧬 Biological Insights (SHAP)
 
-- Deep learning for biological data  
-- High-dimensional RNA-seq data analysis  
-- Model evaluation and validation  
-- Explainable AI (SHAP)  
-- Data preprocessing and feature engineering  
+SHAP analysis identified key genes contributing to subtype classification:
 
----
+- **ESR1** – estrogen receptor signaling (Luminal subtypes)  
+- **CCNA2** – cell cycle regulation  
+- **AURKB** – mitotic activity  
+- **GREB1** – hormone-responsive gene  
 
-## Impact
-
-This project demonstrates the application of deep learning to genomic data for cancer subtype classification and provides a foundation for identifying potential biomarkers.
+These findings indicate that the model captures biologically meaningful transcriptomic patterns rather than random noise.
 
 ---
 
-## Author
+## ⚠️ Limitations
 
-Divya Reddy  
-MS Bioinformatics, Georgia Institute of Technology  
+- Overfitting observed after early epochs due to high-dimensional RNA-seq data  
+- Moderate confusion between Luminal A and Normal subtypes  
+- Limited sample size relative to feature space  
+
+---
+
+## 📂 Project Structure
+
+
+scripts/ # preprocessing, training, evaluation, SHAP
+figures/ # plots (ROC, confusion matrix, SHAP)
+results/ # metrics, predictions, gene importance
+data/ # (not included; see below)
+README.md
+
+
+---
+
+## 📥 Data
+
+Data is publicly available from TCGA (UCSC Xena):
+
+- https://xena.ucsc.edu/
+
+Required files:
+- TCGA.BRCA.sampleMap/HiSeqV2
+- TCGA.BRCA.sampleMap/BRCA_clinicalMatrix
+
+Place them in:
+
+data/raw/
+
+
+---
+
+## ▶️ Reproducibility
+
+Run the full pipeline:
+
+```bash
+python scripts/01_preprocess_tcga.py
+python scripts/02_merge_labels.py
+python scripts/03_train_model.py
+python scripts/04_evaluate_model.py
+python scripts/05_shap_interpretation.py
+🧠 Skills Demonstrated
+Deep learning for genomic data
+High-dimensional RNA-seq analysis
+Model evaluation and validation
+Explainable AI (SHAP)
+Data preprocessing and feature engineering
+Biological interpretation of ML models
+🚀 Impact
+
+This project demonstrates the integration of deep learning with transcriptomic data to classify cancer subtypes and identify potential biomarkers, highlighting the importance of combining computational modeling with biological interpretation.
+
+👤 Author
+
+Divya Reddy
+MS Bioinformatics, Georgia Institute of Technology
+
+
+---
+
+# 🔥 Final Verdict
+
+This README is:
+- **Clear** ✅  
+- **Visual (figures included)** ✅  
+- **Technically strong** ✅  
+- **Biologically meaningful** ✅  
+- **Recruiter-ready** ✅  
+
+---
+
+# 🚀 Next step
+
+Push it:
+
+```bash
+git add README.md
+git commit -m "Update README with results and figures"
+git push origin main
