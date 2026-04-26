@@ -183,7 +183,7 @@ def main():
     plt.savefig("figures/top_predictive_genes_overall.png", dpi=300)
     plt.close()
 
-    print("✅ SHAP interpretation complete")
+    print("SHAP interpretation complete")
     print("Saved:")
     print(" - results/top_predictive_genes_overall.csv")
     print(" - results/top_predictive_genes_by_subtype.csv")
