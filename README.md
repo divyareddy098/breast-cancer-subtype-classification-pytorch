@@ -1,6 +1,6 @@
 # 🧬 Deep Learning for Breast Cancer Subtype Classification Using TCGA RNA-seq Data (PyTorch)
 
-## 📌 Overview
+## Overview
 This project develops an end-to-end deep learning pipeline to classify breast cancer molecular subtypes using TCGA RNA-seq gene expression data. The goal is to integrate machine learning with transcriptomic analysis to understand subtype-specific gene expression patterns and identify biologically meaningful predictive genes.
 
 Breast cancer subtypes considered:
@@ -14,21 +14,19 @@ Breast cancer subtypes considered:
 
 ## ⚙️ Pipeline
 
-
-Raw RNA-seq Data (TCGA Xena)
-↓
-Preprocessing & Normalization
-↓
-Feature Selection (Top 5000 genes)
-↓
-Clinical Label Integration (PAM50)
-↓
-Deep Learning Model (PyTorch)
-↓
-Evaluation (ROC, F1, Confusion Matrix)
-↓
+Raw RNA-seq Data (TCGA Xena)  
+↓  
+Preprocessing & Normalization  
+↓  
+Feature Selection (Top 5000 genes)  
+↓  
+Clinical Label Integration (PAM50)  
+↓  
+Deep Learning Model (PyTorch)  
+↓  
+Evaluation (ROC, F1, Confusion Matrix)  
+↓  
 Interpretability (SHAP)
-
 
 ---
 
@@ -37,24 +35,23 @@ Interpretability (SHAP)
 ### 🔹 Confusion Matrix
 ![Confusion Matrix](figures/confusion_matrix.png)
 
-### 🔹 ROC Curve
+### 🔹 ROC Curves
 ![ROC Curve](figures/roc_curve.png)
 
-### 🔹 Training Loss Curve
+### 🔹 Training Loss
 ![Training Loss](figures/training_loss_curve.png)
 
-### 🔹 SHAP Summary Plot
+### 🔹 SHAP Interpretation
 ![SHAP Summary](figures/shap_summary_LumA.png)
 
 ---
 
 ## 📈 Performance
+- Accuracy: ~74%  
+- Macro F1-score: ~0.74  
+- ROC-AUC: >0.90 across all subtypes  
 
-- **Accuracy:** ~74%  
-- **Macro F1-score:** ~0.74  
-- **ROC-AUC:** >0.90 across all subtypes  
-
-### Key Observations
+### 🔍 Key Observations
 - Strong classification performance for **Basal** and **LumB** subtypes  
 - Misclassification observed between **Luminal A** and **Normal** subtypes due to biological similarity  
 - High ROC-AUC indicates strong separability of transcriptomic patterns  
@@ -62,12 +59,11 @@ Interpretability (SHAP)
 ---
 
 ## Model Architecture
-
-- Fully connected neural network (PyTorch)
-- Batch normalization with dropout regularization
-- AdamW optimizer with learning rate scheduling
-- Early stopping to prevent overfitting
-- Class imbalance handled using weighted loss
+- Fully connected neural network (PyTorch)  
+- Batch normalization with dropout regularization  
+- AdamW optimizer with learning rate scheduling  
+- Early stopping to prevent overfitting  
+- Class imbalance handled using weighted loss  
 
 ---
 
@@ -85,7 +81,6 @@ These results indicate that the model captures biologically meaningful gene expr
 ---
 
 ## Limitations
-
 - Overfitting observed after early epochs due to high-dimensional RNA-seq data  
 - Moderate confusion between Luminal A and Normal subtypes  
 - Limited sample size relative to feature space  
@@ -93,7 +88,6 @@ These results indicate that the model captures biologically meaningful gene expr
 ---
 
 ## 📂 Project Structure
-
 
 scripts/ # preprocessing, training, evaluation, SHAP
 figures/ # plots (ROC, confusion matrix, SHAP)
@@ -105,7 +99,6 @@ README.md
 ---
 
 ## 📥 Data
-
 Data is publicly available from TCGA (UCSC Xena):
 
 🔗 https://xena.ucsc.edu/
@@ -131,14 +124,14 @@ python scripts/02_merge_labels.py
 python scripts/03_train_model.py
 python scripts/04_evaluate_model.py
 python scripts/05_shap_interpretation.py
--> Skills Demonstrated
+--> Skills Demonstrated
 Deep learning for genomic data
 High-dimensional RNA-seq analysis
 Model evaluation and validation
 Explainable AI (SHAP)
 Data preprocessing and feature engineering
 Biological interpretation of machine learning models
---> Impact
+Impact
 
 This project demonstrates the integration of deep learning with transcriptomic data to classify cancer subtypes and identify potential biomarkers, highlighting the importance of combining computational modeling with biological interpretation.
 
