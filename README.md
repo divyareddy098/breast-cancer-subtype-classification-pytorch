@@ -1,7 +1,7 @@
 # 🧬 Deep Learning for Breast Cancer Subtype Classification Using TCGA RNA-seq Data (PyTorch)
 
 ## 📌 Overview
-This project develops an end-to-end deep learning pipeline to classify breast cancer molecular subtypes using TCGA RNA-seq gene expression data. The goal is to combine machine learning with transcriptomic analysis to understand subtype-specific gene expression patterns and identify biologically meaningful predictive genes.
+This project develops an end-to-end deep learning pipeline to classify breast cancer molecular subtypes using TCGA RNA-seq gene expression data. The goal is to integrate machine learning with transcriptomic analysis to understand subtype-specific gene expression patterns and identify biologically meaningful predictive genes.
 
 Breast cancer subtypes considered:
 - Luminal A (LumA)
@@ -37,13 +37,13 @@ Interpretability (SHAP)
 ### 🔹 Confusion Matrix
 ![Confusion Matrix](figures/confusion_matrix.png)
 
-### 🔹 ROC Curves
+### 🔹 ROC Curve
 ![ROC Curve](figures/roc_curve.png)
 
-### 🔹 Training Loss
+### 🔹 Training Loss Curve
 ![Training Loss](figures/training_loss_curve.png)
 
-### 🔹 SHAP Interpretation
+### 🔹 SHAP Summary Plot
 ![SHAP Summary](figures/shap_summary_LumA.png)
 
 ---
@@ -61,10 +61,10 @@ Interpretability (SHAP)
 
 ---
 
-## 🧠 Model Architecture
+## Model Architecture
 
 - Fully connected neural network (PyTorch)
-- Batch normalization + dropout regularization
+- Batch normalization with dropout regularization
 - AdamW optimizer with learning rate scheduling
 - Early stopping to prevent overfitting
 - Class imbalance handled using weighted loss
@@ -80,11 +80,11 @@ SHAP analysis identified key genes contributing to subtype classification:
 - **AURKB** – mitotic activity  
 - **GREB1** – hormone-responsive gene  
 
-These findings indicate that the model captures biologically meaningful transcriptomic patterns rather than random noise.
+These results indicate that the model captures biologically meaningful gene expression patterns rather than random noise.
 
 ---
 
-## ⚠️ Limitations
+## Limitations
 
 - Overfitting observed after early epochs due to high-dimensional RNA-seq data  
 - Moderate confusion between Luminal A and Normal subtypes  
@@ -98,7 +98,7 @@ These findings indicate that the model captures biologically meaningful transcri
 scripts/ # preprocessing, training, evaluation, SHAP
 figures/ # plots (ROC, confusion matrix, SHAP)
 results/ # metrics, predictions, gene importance
-data/ # (not included; see below)
+data/ # not included (see below)
 README.md
 
 
@@ -108,11 +108,11 @@ README.md
 
 Data is publicly available from TCGA (UCSC Xena):
 
-- https://xena.ucsc.edu/
+🔗 https://xena.ucsc.edu/
 
 Required files:
-- TCGA.BRCA.sampleMap/HiSeqV2
-- TCGA.BRCA.sampleMap/BRCA_clinicalMatrix
+- TCGA.BRCA.sampleMap/HiSeqV2  
+- TCGA.BRCA.sampleMap/BRCA_clinicalMatrix  
 
 Place them in:
 
@@ -131,14 +131,14 @@ python scripts/02_merge_labels.py
 python scripts/03_train_model.py
 python scripts/04_evaluate_model.py
 python scripts/05_shap_interpretation.py
-🧠 Skills Demonstrated
+-> Skills Demonstrated
 Deep learning for genomic data
 High-dimensional RNA-seq analysis
 Model evaluation and validation
 Explainable AI (SHAP)
 Data preprocessing and feature engineering
-Biological interpretation of ML models
-🚀 Impact
+Biological interpretation of machine learning models
+--> Impact
 
 This project demonstrates the integration of deep learning with transcriptomic data to classify cancer subtypes and identify potential biomarkers, highlighting the importance of combining computational modeling with biological interpretation.
 
@@ -146,26 +146,3 @@ This project demonstrates the integration of deep learning with transcriptomic d
 
 Divya Reddy
 MS Bioinformatics, Georgia Institute of Technology
-
-
----
-
-# 🔥 Final Verdict
-
-This README is:
-- **Clear** ✅  
-- **Visual (figures included)** ✅  
-- **Technically strong** ✅  
-- **Biologically meaningful** ✅  
-- **Recruiter-ready** ✅  
-
----
-
-# 🚀 Next step
-
-Push it:
-
-```bash
-git add README.md
-git commit -m "Update README with results and figures"
-git push origin main
