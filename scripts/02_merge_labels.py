@@ -30,7 +30,7 @@ df = df[df["Subtype"] != "Normal-like"]
 # Save final dataset
 df.to_csv("data/processed/final_dataset.csv", index=False)
 
-print("✅ Final dataset ready")
+print("Final dataset ready")
 print("Shape:", df.shape)
 print("\nSubtype counts:")
 print(df["Subtype"].value_counts())
