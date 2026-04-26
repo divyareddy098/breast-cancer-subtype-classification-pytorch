@@ -1,86 +1,84 @@
-# Purpose: Load and preprocess TCGA RNA-seq data for model development
-
+import os
 import pandas as pd
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.preprocessing import StandardScaler
 
-# User inputs
-expression_file = "data/tcga_expression.csv"   
-metadata_file = "data/tcga_metadata.csv"       
+RAW_FILE = "data/raw/HiSeqV2"
+OUT_FILE = "data/processed/expression_processed.csv"
+TOP_GENE_FILE = "results/top_variable_genes.csv"
 
+MIN_NONZERO_SAMPLES = 50
+TOP_N_GENES = 5000
 
-# Load data
-def load_data(expression_path, metadata_path):
-    """
-    Load expression and metadata files.
-    """
-    expression_df = pd.read_csv(expression_path, index_col=0)
-    metadata_df = pd.read_csv(metadata_path)
+def main():
+    os.makedirs("data/processed", exist_ok=True)
+    os.makedirs("results", exist_ok=True)
 
-    print("Expression data shape:", expression_df.shape)
-    print("Metadata shape:", metadata_df.shape)
+    if not os.path.exists(RAW_FILE):
+        print(f"❌ File not found: {RAW_FILE}")
+        print("Check files using: ls data/raw")
+        return
 
-    return expression_df, metadata_df
+    print("Loading expression data...")
+    expr = pd.read_csv(RAW_FILE, sep="\t")
 
+    expr.rename(columns={expr.columns[0]: "Gene"}, inplace=True)
 
-# Preprocess data
-def preprocess_data(expression_df, metadata_df, label_column="subtype"):
-    """
-    Align samples, encode subtype labels, and split into train/test sets.
-    """
-    if label_column not in metadata_df.columns:
-        raise ValueError(f"Label column '{label_column}' not found in metadata.")
+    # Clean gene names such as TP53|7157 or ?|100130426
+    expr["Gene"] = expr["Gene"].astype(str).str.split("|", regex=False).str[0]
+    expr = expr[expr["Gene"] != "?"]
 
-    # Align samples
-    common_samples = expression_df.columns.intersection(metadata_df["sample_id"])
-    expression_df = expression_df[common_samples]
-    metadata_df = metadata_df[metadata_df["sample_id"].isin(common_samples)]
+    # Average duplicated gene symbols
+    expr = expr.groupby("Gene").mean(numeric_only=True)
 
-    # Transpose expression matrix so rows = samples
-    X = expression_df.T.values
-    y = metadata_df.set_index("sample_id").loc[common_samples, label_column].values
+    print("Raw gene x sample matrix:", expr.shape)
 
-    # Encode labels
-    label_encoder = LabelEncoder()
-    y_encoded = label_encoder.fit_transform(y)
+    # Transpose: samples as rows, genes as columns
+    expr = expr.T
+    expr.index.name = "Sample"
 
-    # Scale features
+    # Clean TCGA barcode to patient-level ID
+    expr.reset_index(inplace=True)
+    expr["Sample"] = expr["Sample"].astype(str).str[:12]
+
+    # If multiple tumor samples map to same patient, average them
+    expr = expr.groupby("Sample").mean(numeric_only=True)
+
+    print("Sample x gene matrix:", expr.shape)
+
+    # Remove genes expressed in too few samples
+    nonzero_counts = (expr != 0).sum(axis=0)
+    expr = expr.loc[:, nonzero_counts >= MIN_NONZERO_SAMPLES]
+
+    print("After low-expression filtering:", expr.shape)
+
+    # Select top variable genes
+    variances = expr.var(axis=0).sort_values(ascending=False)
+    top_genes = variances.head(TOP_N_GENES).index.tolist()
+
+    pd.DataFrame({
+        "Gene": top_genes,
+        "Variance": variances.loc[top_genes].values
+    }).to_csv(TOP_GENE_FILE, index=False)
+
+    expr = expr[top_genes]
+
+    print("After top variable gene selection:", expr.shape)
+
+    # Standardize expression values for neural network training
     scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
-
-    # Train/test split
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_scaled,
-        y_encoded,
-        test_size=0.2,
-        random_state=42,
-        stratify=y_encoded
+    expr_scaled = pd.DataFrame(
+        scaler.fit_transform(expr),
+        index=expr.index,
+        columns=expr.columns
     )
 
-    print("Training set shape:", X_train.shape)
-    print("Test set shape:", X_test.shape)
-    print("Classes:", list(label_encoder.classes_))
+    expr_scaled.reset_index(inplace=True)
+    expr_scaled.to_csv(OUT_FILE, index=False)
 
-    return X_train, X_test, y_train, y_test, label_encoder, scaler
+    print("✅ Advanced preprocessing complete")
+    print("Processed expression saved to:", OUT_FILE)
+    print("Top variable genes saved to:", TOP_GENE_FILE)
+    print("Final shape:", expr_scaled.shape)
 
-
-# Main
 if __name__ == "__main__":
-    try:
-        expression_df, metadata_df = load_data(expression_file, metadata_file)
-        X_train, X_test, y_train, y_test, label_encoder, scaler = preprocess_data(
-            expression_df,
-            metadata_df,
-            label_column="subtype"
-        )
-
-        print("Data preprocessing completed successfully.")
-        print("Pipeline ready for model training.")
-
-    except FileNotFoundError:
-        print("Placeholder setup: input data files not found yet.")
-        print("Expected files:")
-        print(f" - {expression_file}")
-        print(f" - {metadata_file}")
-        print("Update file paths and rerun once TCGA data is available.")
+    main()
