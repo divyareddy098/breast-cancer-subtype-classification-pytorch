@@ -1,0 +1,17 @@
+name: breast-cancer-subtype-classification
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.10
+  - pandas
+  - numpy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyter
+  - pip
+  - pip:
+      - torch
+      - shap
+      - plotly
