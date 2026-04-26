@@ -75,7 +75,7 @@ def main():
     expr_scaled.reset_index(inplace=True)
     expr_scaled.to_csv(OUT_FILE, index=False)
 
-    print("✅ Advanced preprocessing complete")
+    print(" Advanced preprocessing complete")
     print("Processed expression saved to:", OUT_FILE)
     print("Top variable genes saved to:", TOP_GENE_FILE)
     print("Final shape:", expr_scaled.shape)
