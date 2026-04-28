@@ -1,57 +1,43 @@
-# =========================
 # Python
-# =========================
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# =========================
+
 # Jupyter
-# =========================
 .ipynb_checkpoints/
 
-# =========================
 # OS / System
-# =========================
 .DS_Store
 Thumbs.db
 
-# =========================
 # Virtual environments
-# =========================
 .env
 venv/
 env/
 .venv/
 
-# =========================
 # Data (DO NOT upload raw data)
-# =========================
 data/raw/*
 data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
-# =========================
 # Results (allow outputs)
-# =========================
 !results/
 !results/*.csv
 !results/*.txt
 !results/*.json
 
-# =========================
 # Figures (allow plots)
-# =========================
 !figures/
 !figures/*.png
 !figures/*.jpg
 !figures/*.jpeg
 
-# =========================
+
 # Logs
-# =========================
 *.log
 
 # =========================
