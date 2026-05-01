@@ -12,9 +12,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score, f1_score, classification_report
 from sklearn.utils.class_weight import compute_class_weight
 
-# =========================
+
 # Config
-# =========================
 DATA_FILE = "data/processed/final_dataset.csv"
 MODEL_DIR = "results/models"
 RESULTS_DIR = "results"
@@ -31,9 +30,8 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 os.makedirs(MODEL_DIR, exist_ok=True)
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
-# =========================
+
 # Reproducibility
-# =========================
 def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
@@ -42,9 +40,8 @@ def set_seed(seed):
 
 set_seed(RANDOM_SEED)
 
-# =========================
+
 # Dataset
-# =========================
 class GeneExpressionDataset(Dataset):
     def __init__(self, X, y):
         self.X = torch.tensor(X, dtype=torch.float32)
@@ -56,9 +53,8 @@ class GeneExpressionDataset(Dataset):
     def __getitem__(self, idx):
         return self.X[idx], self.y[idx]
 
-# =========================
+
 # Model
-# =========================
 class BreastCancerSubtypeNN(nn.Module):
     def __init__(self, input_dim, num_classes):
         super().__init__()
@@ -85,9 +81,8 @@ class BreastCancerSubtypeNN(nn.Module):
     def forward(self, x):
         return self.network(x)
 
-# =========================
+
 # Training / Evaluation
-# =========================
 def train_one_epoch(model, dataloader, criterion, optimizer):
     model.train()
     total_loss = 0
