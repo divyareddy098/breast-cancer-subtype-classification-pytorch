@@ -14,7 +14,7 @@ def main():
     os.makedirs("results", exist_ok=True)
 
     if not os.path.exists(RAW_FILE):
-        print(f"❌ File not found: {RAW_FILE}")
+        print(f" File not found: {RAW_FILE}")
         print("Check files using: ls data/raw")
         return
 
